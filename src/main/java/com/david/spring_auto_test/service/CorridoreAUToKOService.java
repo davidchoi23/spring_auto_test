@@ -1,5 +1,6 @@
 package com.david.spring_auto_test.service;
 
+import com.david.spring_auto_test.config.AppConfig;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +16,7 @@ import sun.awt.SunToolkit.OperationTimedOut;
 @RequiredArgsConstructor
 public class CorridoreAUToKOService {
   private final ChromeDriver driver;
+  private final AppConfig appConfig;
   private WebElement webElement;
 
   @PreDestroy
@@ -36,7 +38,7 @@ public class CorridoreAUToKOService {
     // 첫번째 탭으로 전환
     driver.switchTo().window(tabs.get(0));
     // 웹페이지 요청
-    driver.get("http://127.0.0.1:9080/");
+    driver.get(appConfig.getTargetUrl());
 
     // 로그인
     webElement = driver.findElement(By.cssSelector("body > div:nth-child(2) > header > div > div.header-menu-wrap > ul > li.d-pc > a"));
@@ -53,13 +55,11 @@ public class CorridoreAUToKOService {
 
 
     webElement = driver.findElement(By.name("usernameText"));
-    String daum_id ="test@wirebarley.com";
-    webElement.sendKeys(daum_id);
+    webElement.sendKeys(appConfig.getLoginId());
 
     //iframe 내부에서 pw 필드 탐색
     webElement = driver.findElement(By.name("password"));
-    String daum_pw ="1q2w3e4r5t!";
-    webElement.sendKeys(daum_pw);
+    webElement.sendKeys(appConfig.getLoginPw());
 
 
     webElement = driver.findElement(By.id("btn-login"));

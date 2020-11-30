@@ -1,0 +1,4 @@
+app:
+  target_url: http://127.0.0.1:9080/
+  login_id: test@wirebarley.com
+  login_pw: 1q2w3e4r5t!
