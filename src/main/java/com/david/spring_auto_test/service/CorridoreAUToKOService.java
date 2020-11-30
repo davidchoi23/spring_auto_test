@@ -7,31 +7,26 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.stereotype.Component;
 import sun.awt.SunToolkit.OperationTimedOut;
 
 @Component
-@RequiredArgsConstructor
-public class CorridoreAUToKOService {
+public class CorridoreAUToKOService extends BaseService <ChromeDriver> {
   private final ChromeDriver driver;
   private final AppConfig appConfig;
-  private WebElement webElement;
 
-  @PreDestroy
-  private void destroy(){
-    driver.quit();
+
+  public CorridoreAUToKOService(ChromeDriver driver, AppConfig appConfig) {
+    super(driver);
+    this.driver = driver;
+    this.appConfig = appConfig;
   }
 
-  public void runTest() {
-
-    // 실행하려는 코드 작성
-    driver.getLocalStorage();
-
-    // 빈 탭 생성
-    driver.executeScript("window.open('about:blank','_blank');");
-
+  @Override
+  public void run() {
     // 탭 목록 가져오기
     List<String> tabs = new ArrayList<>(driver.getWindowHandles());
 
@@ -40,8 +35,15 @@ public class CorridoreAUToKOService {
     // 웹페이지 요청
     driver.get(appConfig.getTargetUrl());
 
+
+    runLogin();
+
+  }
+
+  private void runLogin() {
+
     // 로그인
-    webElement = driver.findElement(By.cssSelector("body > div:nth-child(2) > header > div > div.header-menu-wrap > ul > li.d-pc > a"));
+    WebElement webElement = driver.findElement(By.cssSelector("body > div:nth-child(2) > header > div > div.header-menu-wrap > ul > li.d-pc > a"));
     webElement.click();
 
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -64,12 +66,7 @@ public class CorridoreAUToKOService {
 
     webElement = driver.findElement(By.id("btn-login"));
     webElement.click();
-
-    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    // 탭 종료
-    driver.close();
   }
-
 
 
 }

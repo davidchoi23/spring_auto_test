@@ -16,7 +16,7 @@ public class ApplicationExecRunner implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
-    corridoreAUToKOService.runTest();
+    corridoreAUToKOService.exec();
     log.info("Run!");
   }
 }
