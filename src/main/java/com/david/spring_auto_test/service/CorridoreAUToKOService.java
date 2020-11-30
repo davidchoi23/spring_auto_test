@@ -14,7 +14,7 @@ import sun.awt.SunToolkit.OperationTimedOut;
 
 @Component
 @RequiredArgsConstructor
-public class CorridoreAUToKOService {
+public class CorridoreAUToKOService extends BaseService<ChromeDriver>{
   private final ChromeDriver driver;
   private final AppConfig appConfig;
   private WebElement webElement;
@@ -24,13 +24,8 @@ public class CorridoreAUToKOService {
     driver.quit();
   }
 
+  @Override
   public void runTest() {
-
-    // 실행하려는 코드 작성
-    driver.getLocalStorage();
-
-    // 빈 탭 생성
-    driver.executeScript("window.open('about:blank','_blank');");
 
     // 탭 목록 가져오기
     List<String> tabs = new ArrayList<>(driver.getWindowHandles());
@@ -65,9 +60,6 @@ public class CorridoreAUToKOService {
     webElement = driver.findElement(By.id("btn-login"));
     webElement.click();
 
-    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    // 탭 종료
-    driver.close();
   }
 
 
