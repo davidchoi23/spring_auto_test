@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 public class AppConfig {
-  private String targetUrl;
-  private String loginId;
-  private String loginPw;
+    private String targetUrl;
+    private String loginId;
+    private String loginPw;
 }
