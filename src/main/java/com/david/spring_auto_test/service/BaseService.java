@@ -14,11 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class BaseService<D extends ChromeDriver, A extends AppConfig> {
 
-    @Autowired
     D driver;
+    A appConfig;
 
     @Autowired
-    A appConfig;
+    public final void setDriver(D driver) {
+        this.driver = driver;
+    }
+
+    @Autowired
+    public final void setAppConfig(A appConfig) {
+        this.appConfig = appConfig;
+    }
 
     @PreDestroy
     private void destroy() {
@@ -41,16 +48,26 @@ public abstract class BaseService<D extends ChromeDriver, A extends AppConfig> {
     }
 
     private void fini() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         // 탭 종료
         driver.close();
     }
 
 
     protected void runLogin() {
+        // 로고를 클릭해서 메인 화면 이동
+        WebElement webElement = driver.findElement(By.cssSelector("body > div:nth-child(2) > header > div > h1 > a"));
+        webElement.click();
 
         // 로그인
-        WebElement webElement = driver.findElement(By.cssSelector("body > div:nth-child(2) > header > div > div.header-menu-wrap > ul > li.d-pc > a"));
+        webElement = driver.findElement(By.cssSelector("body > div:nth-child(2) > header > div > div.header-menu-wrap > ul > li.d-pc > a"));
         webElement.click();
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

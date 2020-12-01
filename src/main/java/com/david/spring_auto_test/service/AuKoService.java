@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +29,46 @@ public class AuKoService extends BaseService<ChromeDriver, AppConfig> {
         // 로그인
         runLogin();
 
+        step1();
+
+
+    }
+
+    private void step1() {
+        //송금하기
+        WebElement webElement = driver.findElement(By.cssSelector("body > div:nth-child(2) > header > div > a"));
+        webElement.click();
+
+        //구간공지닫기
+        webElement = driver.findElement(By.cssSelector("#wb-tx-announceModal > div > div > button.buttons.btn-close"));
+        webElement.click();
+
+
+        //수취국 선택
+        webElement = driver.findElement(By.cssSelector("#tx-step1 > div > div.col-md-10.col-sm-10.col-xs-12 > div:nth-child(2) > div > div > div.tx > div.receive.col-md-12 > div:nth-child(1) > div > div > button"));
+        webElement.click();
+        webElement = driver.findElement(By.cssSelector("#tx-step1 > div > div.col-md-10.col-sm-10.col-xs-12 > div:nth-child(2) > div > div > div.tx > div.receive.col-md-12 > div:nth-child(1) > div > div > div > ul > li:nth-child(12)"));
+        webElement.click();
+
+
+        //구간공지닫기
+        webElement = driver.findElement(By.cssSelector("#wb-tx-announceModal > div > div > button.buttons.btn-close"));
+        webElement.click();
+
+
+        //수취방식 선택
+        webElement = driver.findElement(By.cssSelector("#tx-step1 > div > div.col-md-10.col-sm-10.col-xs-12 > div:nth-child(2) > div > div > div.tx-optionnew > div.wrap_item > div.transfer.item.clearfix > div.select > div > div.border-underline-green.input-group > div.btn-group.bootstrap-select.input-group-btn.evt-change-option.fit-width > button"));
+        webElement.click();
+        webElement = driver.findElement(By.cssSelector("#tx-step1 > div > div.col-md-10.col-sm-10.col-xs-12 > div:nth-child(2) > div > div > div.tx-optionnew > div.wrap_item > div.transfer.item.clearfix > div.select > div > div.border-underline-green.input-group > div.btn-group.bootstrap-select.input-group-btn.evt-change-option.fit-width.open > div > ul > li:nth-child(2)"));
+        webElement.click();
+
+        //구간공지닫기
+        webElement = driver.findElement(By.cssSelector("#wb-tx-announceModal > div > div > button.buttons.btn-close"));
+        webElement.click();
+
+        //다음
+        webElement = driver.findElement(By.id("btn-submit"));
+        webElement.click();
     }
 
 
