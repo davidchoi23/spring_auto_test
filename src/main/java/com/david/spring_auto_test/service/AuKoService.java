@@ -5,18 +5,13 @@ import com.david.spring_auto_test.config.AppConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class AuKoService extends BaseService<ChromeDriver, AppConfig> {
-    private final ChromeDriver driver;
-    private final AppConfig appConfig;
 
     @Override
     public void run() {
